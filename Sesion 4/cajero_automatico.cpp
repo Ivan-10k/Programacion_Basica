@@ -1,58 +1,70 @@
 #include <iostream>
+using namespace std;
 
-class CajeroAutomatico {
+class CajeroAutomatico 
+{
 private:
     double saldo;
 
 public:
     CajeroAutomatico() : saldo(0.0) {}
 
-    void consultarSaldo() {
-        std::cout << "Su saldo actual es: $" << saldo << std::endl;
+    void consultarSaldo() 
+    {
+        cout << "Su saldo actual es: $" << saldo << endl;
     }
 
-    void realizarRetiro() {
+    void realizarRetiro() 
+    {
         double cantidad;
-        std::cout << "Ingrese la cantidad a retirar: $";
-        std::cin >> cantidad;
+        cout << "Ingrese la cantidad a retirar: $";
+        cin >> cantidad;
 
-        if (cantidad > 0 && cantidad <= saldo) {
+        if (cantidad > 0 && cantidad <= saldo) 
+        {
             saldo -= cantidad;
-            std::cout << "Retiro exitoso. Su saldo actual es: $" << saldo << std::endl;
-        } else {
-            std::cout << "Error: Fondos insuficientes o cantidad inválida." << std::endl;
+            cout << "Retiro exitoso. Su saldo actual es: $" << saldo << endl;
+        } else 
+        {
+            cout << "Error: Fondos insuficientes o cantidad inválida." << endl;
         }
     }
 
-    void depositarDinero() {
+    void depositarDinero() 
+   {
         double cantidad;
-        std::cout << "Ingrese la cantidad a depositar: $";
+        cout << "Ingrese la cantidad a depositar: $";
         std::cin >> cantidad;
 
-        if (cantidad > 0) {
+        if (cantidad > 0) 
+        {
             saldo += cantidad;
-            std::cout << "Depósito exitoso. Su saldo actual es: $" << saldo << std::endl;
-        } else {
-            std::cout << "Error: Cantidad de depósito inválida." << std::endl;
+            cout << "Depósito exitoso. Su saldo actual es: $" << saldo << endl;
+        } else 
+        {
+            cout << "Error: Cantidad de depósito inválida." << endl;
         }
     }
 };
 
-int main() {
+int main() 
+{
     CajeroAutomatico cajero;
 
     int opcion;
-    do {
-        std::cout << "\nOpciones del Cajero Automático:" << std::endl;
-        std::cout << "1. Consultar Saldo" << std::endl;
-        std::cout << "2. Realizar Retiro" << std::endl;
-        std::cout << "3. Depositar Dinero" << std::endl;
-        std::cout << "4. Salir" << std::endl;
+    do 
+    {
+        cout << "\nOpciones del Cajero Automático:" << endl;
+        cout << "1. Consultar Saldo" << endl;
+        cout << "2. Realizar Retiro" << endl;
+        cout << "3. Depositar Dinero" << endl;
+        cout << "4. Salir" << endl;
 
-        std::cout << "Seleccione una opción (1-4): ";
-        std::cin >> opcion;
+        cout << "Seleccione una opción (1-4): ";
+        cin >> opcion;
 
-        switch (opcion) {
+        switch (opcion) 
+        {
             case 1:
                 cajero.consultarSaldo();
                 break;
@@ -63,10 +75,10 @@ int main() {
                 cajero.depositarDinero();
                 break;
             case 4:
-                std::cout << "Saliendo del programa. ¡Hasta luego!" << std::endl;
+                cout << "Saliendo del programa. ¡Hasta luego!" << endl;
                 break;
             default:
-                std::cout << "Opción inválida. Por favor, seleccione una opción válida." << std::endl;
+                cout << "Opción inválida. Por favor, seleccione una opción válida." << endl;
                 break;
         }
     } while (opcion != 4);
