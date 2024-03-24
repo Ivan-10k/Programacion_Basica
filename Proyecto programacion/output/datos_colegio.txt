@@ -1,0 +1,74 @@
+***************************
+*    Datos del Colegio    *
+***************************
+Nombre del colegio: Colegio 0729
+Dirección: Calle Principal 123
+---------------------------
+***************************
+*    Horario de Clases  *
+***************************
+Horario de clases: 08:00 - 10:00
+Cursos: Matemática - Química
+***************************
+*     Lista de Estudiantes     *
+***************************
+Estudiante 1:
+Nombre: Juan
+Apellido: Perez
+DNI: 12345678
+Edad: 18
+Sexo: M
+Número de ID: 1001
+Asistencia:
+Asistio: Sí
+Falto: No
+Justificación:  
+*---------------------------*
+Estudiante 2:
+Nombre: María
+Apellido: Gomez
+DNI: 98765432
+Edad: 17
+Sexo: F
+Número de ID: 1002
+Asistencia:
+Asistio: No
+Falto: Sí
+Justificación: El estudiante se enfermó.
+*---------------------------*
+Estudiante 3:
+Nombre: Ivan
+Apellido: Ochoa
+DNI: 15427891
+Edad: 19
+Sexo: M
+Número de ID: 1003
+Asistencia:
+Asistio: Sí
+Falto: No
+Justificación:  
+*---------------------------*
+Estudiante 4:
+Nombre: Anayely
+Apellido: Masgo
+DNI: 56127349
+Edad: 19
+Sexo: F
+Número de ID: 1004
+Asistencia:
+Asistio: Sí
+Falto: No
+Justificación:  
+*---------------------------*
+Estudiante 5:
+Nombre: Lucas
+Apellido: Hernandez
+DNI: 15427891
+Edad: 18
+Sexo: M
+Número de ID: 1005
+Asistencia:
+Asistio: No
+Falto: Sí
+Justificación: El estudiante no pudo asistir por las fuertes lluvias 
+*---------------------------*
