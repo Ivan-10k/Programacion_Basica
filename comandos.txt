@@ -1,0 +1,201 @@
+Cómo instalar Apache (apache2)
+1. Actualizar los repositorios
+Siempre es bueno partir con la lista de paquetes del sistema al día:
+
+Bash
+sudo apt update
+2. Instalar el paquete de Apache
+En los sistemas operativos basados en Debian/Ubuntu, el servicio web de Apache se maneja bajo el nombre apache2:
+
+Bash
+sudo apt install apache2
+(El sistema te mostrará el espacio a utilizar; presiona la tecla Y y luego Enter para confirmar).
+
+3. Configurar el cortafuegos (UFW)
+Debemos indicarle al firewall del servidor que permita el tráfico web entrante por el puerto 80:
+
+Bash
+sudo ufw allow 'Apache'
+4. Verificar que esté funcionando
+Para asegurarte de que el servicio se instaló correctamente y está corriendo sin errores:
+
+Bash
+sudo systemctl status apache2
+(Deberías ver un indicador verde que dice active (running). Recuerda que puedes presionar la letra q en tu teclado para salir de esa vista y volver a la consola normal).
+
+
+
+
+
+Paso 1: Crear la carpeta "web"
+Ejecuta el siguiente comando para crear la carpeta dentro de la ruta indicada:
+
+Bash
+sudo mkdir -p /var/www/html/web
+(El parámetro -p es una buena práctica porque asegura que se cree la ruta completa si es que falta algo, aunque en este caso html ya existe).
+
+Paso 2: Crear y abrir el archivo index.html
+Para crear el archivo y empezar a editarlo directamente desde la terminal, utilizaremos el editor de texto clásico nano:
+
+Bash
+sudo nano /var/www/html/web/index.html
+Paso 3: Escribir el contenido de la página web
+Se abrirá una pantalla en blanco dentro de la terminal. Copia y pega el siguiente código HTML básico que cumple con lo que necesitas:
+
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Primera Página</title>
+</head>
+<body>
+    <h1>Bienvenidos a mi primera pagina web en un servidor real.</h1>
+</body>
+</html>
+Paso 4: Guardar y salir del editor
+Para guardar los cambios en el editor nano, presiona estas combinaciones de teclas:
+
+Presiona Ctrl + O (para guardar).
+
+Presiona Enter (para confirmar el nombre del archivo).
+
+Presiona Ctrl + X (para salir del editor y volver a la terminal).
+
+Paso 5: Comprobar el resultado
+¡Listo! Apache detectará la nueva carpeta de forma automática sin necesidad de reiniciar el servicio.
+
+Para verificar que todo funciona para tu examen, abre el navegador web en tu computadora de escritorio y accede a la siguiente dirección (reemplazando con la IP de tu servidor):
+
+Plaintext
+http://IP_DE_TU_VM/web/
+
+
+
+
+
+
+
+
+1. Instalar el paquete de MySQL
+Primero, asegúrate de que el índice de paquetes esté actualizado y luego instala el servidor MySQL.
+
+Bash
+sudo apt update
+sudo apt install mysql-server
+(Presiona Y y luego Enter cuando el sistema te pregunte si deseas continuar).
+
+2. Verificar que el servicio esté corriendo
+Al igual que hicimos con Apache, es una buena práctica confirmar que el servicio de base de datos se inició correctamente de forma automática:
+
+Bash
+sudo systemctl status mysql
+(Busca el texto en verde que dice active (running). Recuerda presionar la letra q para salir).
+
+3. Configurar la seguridad inicial (Muy importante)
+Para un entorno de servidor real (y es un punto que los profesores suelen evaluar), debes ejecutar el script de seguridad que viene incluido con MySQL. Esto elimina configuraciones inseguras por defecto.
+
+Bash
+sudo mysql_secure_installation
+El sistema te hará una serie de preguntas. Aquí tienes la guía de qué responder:
+
+VALIDATE PASSWORD COMPONENT: Te preguntará si quieres activar el componente de contraseñas seguras. Puedes presionar N o No si solo es un entorno de pruebas, o Y si quieres obligar a usar contraseñas complejas.
+
+New password: Te pedirá que configures una contraseña para el usuario root de MySQL. (Escríbela y guárdala bien; no verás los caracteres mientras escribes).
+
+Remove anonymous users? (¿Eliminar usuarios anónimos?): Presiona Y.
+
+Disallow root login remotely? (¿Deshabilitar el inicio de sesión remoto para root?): Presiona Y (por seguridad, root solo debe acceder desde la misma máquina).
+
+Remove test database and access to it? (¿Eliminar la base de datos de prueba?): Presiona Y.
+
+Reload privilege tables now? (¿Recargar las tablas de privilegios?): Presiona Y.
+
+4. Acceder a la consola de MySQL
+Para comprobar que tienes acceso y puedes empezar a crear bases de datos (por ejemplo, para el catálogo y usuarios de tu sistema e-commerce), entra a la consola de administración de MySQL con este comando:
+
+Bash
+sudo mysql
+Verás que el prompt (la línea donde escribes) cambia a mysql>. Para salir de esta consola y volver a la terminal de Ubuntu, simplemente escribe:
+
+SQL
+exit
+
+
+
+
+
+
+
+SQL
+CREATE DATABASE laboratorio;
+USE laboratorio;
+A continuación, tienes los comandos SQL exactos para crear la tabla carro con la estructura solicitada y realizar la inserción de los datos:
+
+1. Crear la tabla carro
+Este comando define los campos, sus tipos de datos y establece el id como la llave primaria con incremento automático para facilitar el orden:
+
+SQL
+CREATE TABLE carro (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    modelo VARCHAR(100),
+    añomodelo INT,
+    nombremarca VARCHAR(100)
+);
+2. Insertar los 8 carros
+Con este único comando INSERT, añadimos los 8 registros de forma masiva a la tabla recién creada:
+
+SQL
+INSERT INTO carro (nombre, modelo, añomodelo, nombremarca) VALUES 
+('Corolla', 'Sedán', 2022, 'Toyota'),
+('Civic', 'EXL', 2021, 'Honda'),
+('Mustang', 'GT', 2023, 'Ford'),
+('Sentra', 'Advance', 2020, 'Nissan'),
+('Golf', 'GTI', 2019, 'Volkswagen'),
+('Onix', 'Turbo', 2022, 'Chevrolet'),
+('Sportage', 'SUV', 2023, 'Kia'),
+('Tucson', 'GLS', 2021, 'Hyundai');
+3. Verificar los datos cargados
+Para confirmar que la tabla se creó correctamente y que los datos se guardaron de manera exitosa para tu evaluación, ejecuta una consulta de selección:
+
+SQL
+SELECT * FROM carro;
+
+
+
+
+
+
+Fase 1: Instalar el Servidor FTP en Ubuntu Server
+Utilizaremos vsftpd (Very Secure FTP Daemon), que es rápido, estable y el estándar en la mayoría de distribuciones Linux.
+
+1. Instalar el paquete
+Abre la terminal de tu máquina virtual en Proxmox (o vía SSH) y ejecuta:
+
+Bash
+sudo apt update
+sudo apt install vsftpd
+2. Configurar permisos de escritura
+Por defecto, el servidor FTP no permite subir archivos, solo descargarlos. Debemos habilitar la escritura editando su archivo de configuración:
+
+Bash
+sudo nano /etc/vsftpd.conf
+Dentro del archivo, busca la línea que dice #write_enable=YES. Quítale el símbolo de numeral (#) al principio para descomentarla, de modo que quede exactamente así:
+
+Plaintext
+write_enable=YES
+Guarda los cambios (Ctrl + O, Enter, Ctrl + X).
+
+3. Preparar la carpeta web para tu usuario
+La carpeta /var/www/html/web/ que creamos antes pertenece al usuario root. Si intentas subir archivos allí con tu usuario normal de Ubuntu mediante FTP, el sistema te dará un error de "Permiso denegado".
+Para solucionarlo, vamos a hacer que tu usuario sea el dueño de esa carpeta. Ejecuta este comando (reemplaza tu_usuario por el nombre de usuario con el que inicias sesión en Ubuntu):
+
+Bash
+sudo chown -R tu_usuario:tu_usuario /var/www/html/web/
+4. Reiniciar el servicio y abrir el cortafuegos
+Aplica los cambios reiniciando vsftpd y permite el tráfico FTP por el puerto 21:
+
+Bash
+sudo systemctl restart vsftpd
+sudo ufw allow 21/tcp
