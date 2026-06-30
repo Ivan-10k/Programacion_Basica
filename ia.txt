@@ -1,0 +1,106 @@
+<?php
+// Configuración de conexión a la base de datos
+$servidor = "localhost";
+$usuario = "root";
+$password = "TU_CONTRASEÑA"; // <-- ¡CAMBIA ESTO!
+$basededatos = "db_alumnos";
+
+$conexion = new mysqli($servidor, $usuario, $password, $basededatos);
+
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
+}
+
+// Lógica para registrar un nuevo alumno si se envía el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $dni = $_POST['dni'];
+    $escuela = $_POST['escuela_profesional'];
+
+    $sql_insert = "INSERT INTO alumnos (nombres, apellidos, dni, escuela_profesional) 
+                   VALUES ('$nombres', '$apellidos', '$dni', '$escuela')";
+    
+    if ($conexion->query($sql_insert) === TRUE) {
+        $mensaje = "<p style='color: green;'>¡Alumno registrado con éxito!</p>";
+    } else {
+        $mensaje = "<p style='color: red;'>Error al registrar: " . $conexion->error . "</p>";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Estudiantes - TechSolutions</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; }
+        .contenedor { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        input[type="text"] { width: 100%; padding: 8px; margin: 5px 0 15px; box-sizing: border-box; }
+        input[type="submit"] { background-color: #0056b3; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #0056b3; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>TechSolutions Perú S.A.C - Sistema Web Interno</h1>
+
+    <div class="contenedor">
+        <h2>Registrar Nuevo Alumno</h2>
+        <?php if(isset($mensaje)) echo $mensaje; ?>
+        
+        <form action="index.php" method="POST">
+            <label>Nombres:</label>
+            <input type="text" name="nombres" required>
+
+            <label>Apellidos:</label>
+            <input type="text" name="apellidos" required>
+
+            <label>DNI:</label>
+            <input type="text" name="dni" required>
+
+            <label>Escuela Profesional:</label>
+            <input type="text" name="escuela_profesional" required>
+
+            <input type="submit" value="Guardar Alumno">
+        </form>
+    </div>
+
+    <div class="contenedor">
+        <h2>Listado de Alumnos Registrados</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Escuela Profesional</th>
+            </tr>
+            
+            <?php
+            $sql_select = "SELECT * FROM alumnos";
+            $resultado = $conexion->query($sql_select);
+
+            if ($resultado->num_rows > 0) {
+                while($fila = $resultado->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $fila["id"] . "</td>";
+                    echo "<td>" . $fila["nombres"] . "</td>";
+                    echo "<td>" . $fila["apellidos"] . "</td>";
+                    echo "<td>" . $fila["dni"] . "</td>";
+                    echo "<td>" . $fila["escuela_profesional"] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5'>No hay alumnos registrados aún.</td></tr>";
+            }
+            $conexion->close();
+            ?>
+        </table>
+    </div>
+
+</body>
+</html>
