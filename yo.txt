@@ -1,0 +1,40 @@
+<?php
+$conexion = new mysqli("localhost", "root", "TU_CONTRASEÑA", "db_alumnos");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $n = $_POST['nombres']; $a = $_POST['apellidos']; 
+    $d = $_POST['dni']; $e = $_POST['escuela_profesional'];
+    $conexion->query("INSERT INTO alumnos (nombres, apellidos, dni, escuela_profesional) VALUES ('$n', '$a', '$d', '$e')");
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"><title>TechSolutions - Alumnos</title>
+    <style>body{font-family:Arial; padding:20px;} table, th, td{border: 1px solid black; border-collapse: collapse; padding: 8px;} .box{margin-bottom:20px;}</style>
+</head>
+<body>
+    <div class="box">
+        <h2>Registrar Alumno</h2>
+        <form method="POST">
+            Nombres: <input type="text" name="nombres" required><br><br>
+            Apellidos: <input type="text" name="apellidos" required><br><br>
+            DNI: <input type="text" name="dni" required><br><br>
+            Escuela: <input type="text" name="escuela_profesional" required><br><br>
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+    <div class="box">
+        <h2>Listado de Alumnos</h2>
+        <table>
+            <tr><th>ID</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>Escuela</th></tr>
+            <?php
+            $res = $conexion->query("SELECT * FROM alumnos");
+            while($f = $res->fetch_assoc()){
+                echo "<tr><td>{$f['id']}</td><td>{$f['nombres']}</td><td>{$f['apellidos']}</td><td>{$f['dni']}</td><td>{$f['escuela_profesional']}</td></tr>";
+            }
+            ?>
+        </table>
+    </div>
+</body>
+</html>
